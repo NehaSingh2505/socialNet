@@ -27,16 +27,16 @@ con.connect(function(err){
 
 app.get("/login",function(req,res)
 {
-res.sendFile("./socialnet/html/login.html",{root:__dirname});
+res.sendFile("./socialNet/frontend/html/login.html",{root:__dirname});
 });
 
 app.get("/Register",function(req,res)
 {
-res.sendFile("./socialnet/html/register.html",{root:__dirname});
+res.sendFile("./socialNet/frontend/html/register.html",{root:__dirname});
 });
 app.get("/",function(req,res)
 {
-res.sendFile("./socialnet/html/register.html",{root:__dirname});
+res.sendFile("./socialNet/frontend/html/register.html",{root:__dirname});
 });
 
 
@@ -79,9 +79,9 @@ con.query(q,function(err,result){
 });    
 });
 
-app.listen(8000,()=>
+app.listen(9000,()=>
 {
-console.log("Project run on port no 8000");
+console.log("Project run on port no 9000");
 });
 
 
