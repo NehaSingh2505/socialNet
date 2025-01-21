@@ -14,7 +14,7 @@ var con= my.createConnection({
     host:'127.0.0.1',
     user:'root',
     password:'',
-    database:'project'
+    database:'socialnet'
 });
 con.connect(function(err){
     if(err)
