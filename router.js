@@ -1,8 +1,8 @@
 var express=require('express');
 var app=express();
-app.use(express.static("socialnet"));
-app.use(express.static("socialnet/css"));
-app.use(express.static("socialnet/html"));
+app.use(express.static("socialNet/frontend"));
+app.use(express.static("socialNet/frontend/css"));
+app.use(express.static("socialNet/frontend/html"));
 
 app.set('view engine','ejs');
 app.use(express.json())
@@ -27,16 +27,16 @@ con.connect(function(err){
 
 app.get("/login",function(req,res)
 {
-res.sendFile("./socialNet/frontend/html/login.html",{root:__dirname});
+res.sendFile("./frontend/html/login.html",{root:__dirname});
 });
 
-app.get("/Register",function(req,res)
+app.get("/register",function(req,res)
 {
-res.sendFile("./socialNet/frontend/html/register.html",{root:__dirname});
+res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
 app.get("/",function(req,res)
 {
-res.sendFile("./socialNet/frontend/html/register.html",{root:__dirname});
+res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
 
 
@@ -79,9 +79,9 @@ con.query(q,function(err,result){
 });    
 });
 
-app.listen(9000,()=>
+app.listen(8000,()=>
 {
-    console.log("Project run on port no 9000");
+    console.log("Project run on port no 8000");
 });
 
 
