@@ -1,63 +1,21 @@
-const loginForm = document.querySelector("form");
-const emailInput = document.querySelector("#email");
-const passwordInput = document.querySelector("#password");
+// login.js
 
-function sanitizeInput(input) {
-  const tempElement = document.createElement("div");
-  tempElement.textContent = input;
-  return tempElement.innerHTML;
-}
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.querySelector('.login-form form');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
 
-function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-function isValidPassword(password) {
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  return passwordRegex.test(password);
-}
-
-loginForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const email = sanitizeInput(emailInput.value);
-  const password = sanitizeInput(passwordInput.value);
-
-  if (!isValidEmail(email)) {
-    alert("Please enter a valid email address.");
-    return;
-  }
-
-  if (!isValidPassword(password)) {
-    alert(
-      "Password must be at least 8 characters long and contain at least one letter and one number."
-    );
-    return;
-  }
-
-  fetch("loginprocess", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Login failed. Please check your credentials.");
+  form.addEventListener('submit', function (event) {
+      
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(emailInput.value)) {
+          alert('Please enter a valid email address.');
+          event.preventDefault(); 
       }
-    })
-    .then((data) => {
-      alert("Login successful!");
-      window.location.href = "/dashboard";
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
+
+      if (passwordInput.value.trim() === '') {
+          alert('Password cannot be empty.');
+      }
+
+  });
 });

@@ -1,7 +1,9 @@
 var express=require('express');
 var app=express();
 app.use(express.static("socialNet/frontend"));
-app.use(express.static("socialNet/frontend/css"));
+console.log(__dirname);
+app.use("/css",express.static(__dirname+"/frontend/css"));
+app.use("/js",express.static(__dirname+"/frontend/js"));
 app.use(express.static("socialNet/frontend/html"));
 
 app.set('view engine','ejs');
