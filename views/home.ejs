@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Home Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Notifications</a></li>
+                <li><a href="#">Messages</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">More</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="sidebar">
+            <h2>Trends for you</h2>
+            <ul>
+                <% trends.forEach(function(trend) { %>
+                    <li><%= trend.name %> - <%= trend.count %> tweets</li>
+                <% }); %>
+            </ul>
+        </section>
+        <section class="feed">
+            <h2>Your Feed</h2>
+            <ul>
+                <% tweets.forEach(function(tweet) { %>
+                    <li>
+                        <div class="tweet-header">
+                            <img src="<%= tweet.user.avatar %>" alt="<%= tweet.user.name %>">
+                            <span><%= tweet.user.name %></span>
+                            <span>@<%= tweet.user.username %></span>
+                            <span><%= tweet.createdAt %></span>
+                        </div>
+                        <div class="tweet-content">
+                            <p><%= tweet.content %></p>
+                        </div>
+                        <div class="tweet-actions">
+                            <button>Like</button>
+                            <button>Retweet</button>
+                            <button>Reply</button>
+                        </div>
+                    </li>
+                <% }); %>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Twitter Clone</p>
+    </footer>
+</body>
+</html>
