@@ -36,11 +36,21 @@ app.get("/register",function(req,res)
 {
 res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
+
 app.get("/",function(req,res)
 {
 res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
 
+app.get("/home",function(req,res)
+{
+    res.render("home");
+});
+
+app.get("/frontp",function(req,res)
+{
+    res.render("frontp");
+});
 
 /*-----------------------register------------------*/
 app.post("/regprocess",function(req,res)
