@@ -21,25 +21,18 @@
     <main>
         <section class="sidebar">
             <h2>Trends for you</h2>
-            <ul>
-                <% trends.forEach(function(trend) { %>
-                    <li><%= trend.name %> - <%= trend.count %> tweets</li>
-                <% }); %>
-            </ul>
+           
         </section>
         <section class="feed">
             <h2>Your Feed</h2>
             <ul>
-                <% tweets.forEach(function(tweet) { %>
+                
                     <li>
                         <div class="tweet-header">
-                            <img src="<%= tweet.user.avatar %>" alt="<%= tweet.user.name %>">
-                            <span><%= tweet.user.name %></span>
-                            <span>@<%= tweet.user.username %></span>
-                            <span><%= tweet.createdAt %></span>
+
                         </div>
                         <div class="tweet-content">
-                            <p><%= tweet.content %></p>
+                            <p></p>
                         </div>
                         <div class="tweet-actions">
                             <button>Like</button>
@@ -47,12 +40,12 @@
                             <button>Reply</button>
                         </div>
                     </li>
-                <% }); %>
+                
             </ul>
         </section>
     </main>
     <footer>
-        <p>&copy; 2025 Twitter Clone</p>
+        <p>&copy; 2025 Twitter</p>
     </footer>
 </body>
 </html>
