@@ -55,3 +55,46 @@ button[type="button"], button[type="submit"] {
 button[type="button"]:hover, button[type="submit"]:hover {
     background-color: #3e8e41;
 }
+/*---------------image------------*/
+
+.form-group.image-box {
+    margin-bottom: 20px;
+  }
+  
+  .form-group.image-box label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .image-placeholder {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+  }
+  
+  .image-placeholder span {
+    font-size: 16px;
+    color: #337ab7;
+    text-decoration: none;
+  }
+  
+  .image-placeholder span:hover {
+    color: #23527c;
+  }
+  
+  .image-placeholder input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
