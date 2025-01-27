@@ -61,8 +61,8 @@ app.post("/regprocess",function(req,res)
     var a=req.body.N;
     var b=req.body.E;
     var c=req.body.P;
-    var d=req.file.filename;
-    var q="insert into users values('"+a+"','"+b+"','"+c+"','"+d+"')";
+   
+    var q="insert into users values('"+a+"','"+b+"','"+c+"')";
    con.query(q,function(err,result){
     if(err)
         throw err;
