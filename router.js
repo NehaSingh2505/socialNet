@@ -51,15 +51,9 @@ app.get("/",function(req,res)
 res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
 
-app.get("/home",function(req,res)
-{
-    res.render("home");
-});
 
-app.get("/frontp",function(req,res)
-{
-    res.render("frontp");
-});
+
+
 
 /*-----------------------register------------------*/
 app.post("/regprocess",function(req,res)
@@ -67,7 +61,7 @@ app.post("/regprocess",function(req,res)
     var a=req.body.N;
     var b=req.body.E;
     var c=req.body.P;
-    var d=req.body.UserImage;
+    var d=req.file.filename;
     var q="insert into users values('"+a+"','"+b+"','"+c+"','"+d+"')";
    con.query(q,function(err,result){
     if(err)
@@ -92,7 +86,11 @@ con.query(q,function(err,result){
     if(L>0){
         var p=result[0].pwd;
         if(p==b)
-            res.render('frontp',{na:result[0].name});
+            {
+                req.session.aname=result[0].name;
+                res.render('home',{na:result[0].name});
+                 
+                }   
         else
         res.send("Password is invalid");
     }

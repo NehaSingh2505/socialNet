@@ -1,51 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twitter Home Page</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twitter Clone</title>
+  <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="home">Home</a></li>
-                <li><a href="#">Notifications</a></li>
-                <li><a href="#">Messages</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">More</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section class="sidebar">
-            <h2>Trends for you</h2>
-           
-        </section>
-        <section class="feed">
-            <h2>Your Feed</h2>
-            <ul>
-                
-                    <li>
-                        <div class="tweet-header">
 
-                        </div>
-                        <div class="tweet-content">
-                            <p></p>
-                        </div>
-                        <div class="tweet-actions">
-                            <button>Like</button>
-                            <button>Retweet</button>
-                            <button>Reply</button>
-                        </div>
-                    </li>
-                
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 Twitter</p>
-    </footer>
+  <!-- Header Section -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">Twitter</div>
+      <div class="menu">
+        <a href="home">Home</a>
+        <a href="#">Notifications</a>
+        <a href="#">Messages</a>
+        <a href="#">Profile</a>
+        <a href="#">More</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content Section -->
+  <div class="container">
+    <div class="sidebar">
+      <div class="user-profile">
+        <img src="https://via.placeholder.com/50" alt="Profile" class="profile-pic">
+        <h3>@Welcome <%= na%></h3>
+        <button>Tweet</button>
+      </div>
+    </div>
+
+    <div class="feed">
+      <div class="tweet-box">
+        <textarea placeholder="What's happening?"></textarea>
+        <button>Tweet</button>
+      </div>
+
+      <div class="tweet">
+        <div class="tweet-header">
+          <img src="https://via.placeholder.com/40" alt="User" class="profile-pic">
+          <div class="tweet-info">
+            <span class="user-name">John Doe</span>
+            <span class="user-handle">@johndoe</span>
+            <span class="tweet-time">2h ago</span>
+          </div>
+        </div>
+        <p class="tweet-content"></p>
+      </div>
+
+      <div class="tweet">
+        <div class="tweet-header">
+          <img src="https://via.placeholder.com/40" alt="User" class="profile-pic">
+          <div class="tweet-info">
+            <span class="user-name">Jane Doe</span>
+            <span class="user-handle">@janedoe</span>
+            <span class="tweet-time">4h ago</span>
+          </div>
+        </div>
+        <p class="tweet-content"></p>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
