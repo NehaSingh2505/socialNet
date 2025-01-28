@@ -56,13 +56,14 @@ res.sendFile("./frontend/html/register.html",{root:__dirname});
 
 
 /*-----------------------register------------------*/
-app.post("/regprocess",function(req,res)
+app.post("/regprocess",upload.single("UserImage"),function(req,res)
 {
     var a=req.body.N;
     var b=req.body.E;
     var c=req.body.P;
+    var d=req.file.filename;
    
-    var q="insert into users values('"+a+"','"+b+"','"+c+"')";
+    var q="insert into users values('"+a+"','"+b+"','"+c+"','"+d+"')";
    con.query(q,function(err,result){
     if(err)
         throw err;
@@ -110,6 +111,7 @@ const st = multer.diskStorage({
       cb(null, file.originalname);
     }
   });
+  const upload = multer({ storage: st });
 
 app.listen(8000,()=>
 {
