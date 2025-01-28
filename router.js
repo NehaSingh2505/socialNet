@@ -8,6 +8,19 @@ app.use("/css",express.static(__dirname+"/frontend/css"));
 app.use("/js",express.static(__dirname+"/frontend/js"));
 app.use(express.static("socialNet/frontend/html"));
 
+/*----------------------multer code---------------------*/
+const st = multer.diskStorage({
+    destination: function (req, file, cb) {
+  
+      cb(null, 'frontend/uploads/');
+    },
+    filename: function (req, file, cb) {
+      
+      cb(null, file.originalname);
+    }
+  });
+  const upload = multer({ storage: st });
+
 app.set('view engine','ejs');
 
 app.use(session({
@@ -89,7 +102,7 @@ con.query(q,function(err,result){
         if(p==b)
             {
                 req.session.aname=result[0].name;
-                res.render('home',{na:result[0].name});
+                res.render('home',{data:result});
                  
                 }   
         else
@@ -100,18 +113,7 @@ con.query(q,function(err,result){
 });    
 });
 
-/*----------------------multer code---------------------*/
-const st = multer.diskStorage({
-    destination: function (req, file, cb) {
-  
-      cb(null, 'socialNet/uploads/');
-    },
-    filename: function (req, file, cb) {
-      
-      cb(null, file.originalname);
-    }
-  });
-  const upload = multer({ storage: st });
+
 
 app.listen(8000,()=>
 {
