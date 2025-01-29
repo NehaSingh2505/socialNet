@@ -2,11 +2,33 @@ var express=require('express');
 var app=express();
 app.use(express.static("socialNet/frontend"));
 console.log(__dirname);
+const multer = require('multer');
+const session = require("express-session");
 app.use("/css",express.static(__dirname+"/frontend/css"));
 app.use("/js",express.static(__dirname+"/frontend/js"));
 app.use(express.static("socialNet/frontend/html"));
 
+/*----------------------multer code---------------------*/
+const st = multer.diskStorage({
+    destination: function (req, file, cb) {
+  
+      cb(null, 'frontend/uploads/');
+    },
+    filename: function (req, file, cb) {
+      
+      cb(null, file.originalname);
+    }
+  });
+  const upload = multer({ storage: st });
+
 app.set('view engine','ejs');
+
+app.use(session({
+    secret: "12345",
+    saveUninitialized: true,
+    resave: true
+}));
+
 app.use(express.json())
 app.use(express.urlencoded({extended:false}) )
 
@@ -23,7 +45,7 @@ con.connect(function(err){
         throw err;
     console.log("connect to mysql")
 });
-
+/*----------------------------------------------------*/
 
 
 
@@ -36,19 +58,25 @@ app.get("/register",function(req,res)
 {
 res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
+
 app.get("/",function(req,res)
 {
 res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
 
 
+
+
+
 /*-----------------------register------------------*/
-app.post("/regprocess",function(req,res)
+app.post("/regprocess",upload.single("UserImage"),function(req,res)
 {
     var a=req.body.N;
     var b=req.body.E;
     var c=req.body.P;
-    var q="insert into users values('"+a+"','"+b+"','"+c+"')";
+    var d=req.file.filename;
+   
+    var q="insert into users values('"+a+"','"+b+"','"+c+"','"+d+"')";
    con.query(q,function(err,result){
     if(err)
         throw err;
@@ -72,7 +100,11 @@ con.query(q,function(err,result){
     if(L>0){
         var p=result[0].pwd;
         if(p==b)
-            res.render('frontp',{na:result[0].name});
+            {
+                req.session.aname=result[0].name;
+                res.render('home',{data:result});
+                 
+                }   
         else
         res.send("Password is invalid");
     }
@@ -80,6 +112,8 @@ con.query(q,function(err,result){
     res.send("Email is invalid");
 });    
 });
+
+
 
 app.listen(8000,()=>
 {

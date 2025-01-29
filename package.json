@@ -2,7 +2,29 @@
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^4.21.2",
+    "express-session": "^1.18.1",
     "multer": "^1.4.5-lts.1",
-    "mysql": "^2.18.1"
-  }
+    "mysql": "^2.18.1",
+    "nodemon": "^3.1.9"
+  },
+  "name": "socialnet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "router.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "nodemon router.js",
+    "start": "nodemon router.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NehaSingh2505/socialNet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NehaSingh2505/socialNet/issues"
+  },
+  "homepage": "https://github.com/NehaSingh2505/socialNet#readme"
 }

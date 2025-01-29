@@ -9,11 +9,11 @@
     
 </head>
 
-<body>
+<div>
     <div class="container">
         <div class="signup-form">
             <h2>Signup</h2>
-            <form action="/regprocess" method="post">
+            <form action="/regprocess" method="post" enctype="multipart/form-data">
                 <div class="input-group">
                     <label for="username">Name</label>
                     <input type="text" id="username" name="N" placeholder="Enter your name" required>
@@ -30,13 +30,37 @@
                     <label for="confirm-password">Confirm Password</label>
                     <input type="password" id="confirm-password" name="RP" placeholder="Confirm your password" required>
                 </div>
+                <div class="form-group image-box">
+                    <label for="bookImage">User Image</label>
+                    <div class="image-placeholder">
+                        <input type="file" id="UserImage" name="UserImage" accept="image/*" style="display: none;">
+                        <span onclick="document.getElementById('UserImage').click()">Upload Image</span>
+                    </div>
+                </div>
                 <button type="submit">Signup</button>
             </form>
             <p>Already have an account? <a href="/login">Login</a></p>
         </div>
-    </div>
+        <p>------------------ or sign up with -------------------</p>
+                <div class="icons">
+                    <a href="#"><i class="fa-brands fa-square-google-plus"></i></a>
+                    <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-square-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+    
+                </div> 
 
-    <script src="/js/register.js"></script>
+    </div>
+</div>
+
+    <script src="/js/register.js">
+         // Optional: Display the selected image file name
+        document.getElementById('UserImage').addEventListener('change', function(event) {
+            const fileName = event.target.files[0].name;
+            document.querySelector('.image-placeholder span').textContent = fileName;
+        });
+    </script>
 </body>
 
 </html>
+

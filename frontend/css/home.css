@@ -1,0 +1,150 @@
+
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f8fa;
+    color: #14171a;
+}
+
+
+header {
+    background-color: #1da1f2;
+    padding: 10px 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.sidebar {
+    width: 250px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-right: 1px solid #e1e8ed;
+}
+
+.user-profile {
+    text-align: center;
+}
+
+.profile-pic {
+    border-radius: 50%;
+}
+
+.user-profile h3 {
+    margin: 10px 0;
+}
+
+.user-profile button {
+    background-color: #1da1f2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.user-profile button:hover {
+    background-color: #0d95e8;
+}
+
+.feed {
+    flex: 1;
+    padding: 20px;
+}
+
+.tweet-box {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.tweet-box textarea {
+    width: 100%;
+    border: 1px solid #e1e8ed;
+    border-radius: 5px;
+    padding: 10px;
+    resize: none;
+}
+
+.tweet-box button {
+    background-color: #1da1f2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.tweet-box button:hover {
+    background-color: #0d95e8;
+}
+
+/* Tweet styles */
+.tweet {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.tweet-header {
+    display: flex;
+    align-items: center;
+}
+
+.tweet-info {
+    margin-left: 10px;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.user-handle {
+    color: #657786;
+    margin-left: 5px;
+}
+
+.tweet-time {
+    color: #657786;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.tweet-content {
+    margin-top: 10px;
+}
