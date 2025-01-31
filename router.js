@@ -59,6 +59,11 @@ app.get("/register",function(req,res)
 res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
 
+app.get("/profile",function(req,res)
+{
+res.render('profile');
+});
+
 app.get("/",function(req,res)
 {
 res.sendFile("./frontend/html/register.html",{root:__dirname});
