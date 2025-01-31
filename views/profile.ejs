@@ -25,29 +25,29 @@
     <div class="banner"></div>
     <div class="profile-info">
       <img src="<%=data[0].UserImage %>" alt="Profile" class="profile-pic">
-      <h2><%=data[0].name %></h2>
+      <!-- <h2><%=data[0].name %></h2>
       <p>@<%=data[0].username %></p>
       <p>Joined <%=data[0].joinDate %></p>
-      <p><%=data[0].following %> Following | <%=data[0].followers %> Followers</p>
+      <p><%=data[0].following %> Following | <%=data[0].followers %> Followers</p> -->
       <button class="edit-profile">Edit Profile</button>
     </div>
   </div>
 
   <div class="feed">
     <h3>Posts</h3>
-    <% data[0].tweets.forEach(function(tweet) { %>
+    <!-- <% data[0].tweets.forEach(function(tweet) { %> -->
       <div class="tweet">
         <div class="tweet-header">
           <img src="<%=data[0].UserImage %>" alt="User" class="profile-pic">
           <div class="tweet-info">
-            <span class="user-name"><%=data[0].name %></span>
+            <!-- <span class="user-name"><%=data[0].name %></span>
             <span class="user-handle">@<%=data[0].username %></span>
-            <span class="tweet-time"><%=tweet.time %></span>
+            <span class="tweet-time"><%=tweet.time %></span> -->
           </div>
         </div>
         <p class="tweet-content"><%=tweet.content %></p>
       </div>
-    <% }); %>
+    <!-- <% }); %> -->
   </div>
 
 </body>
