@@ -6,7 +6,11 @@ const multer = require('multer');
 const session = require("express-session");
 app.use("/css",express.static(__dirname+"/frontend/css"));
 app.use("/js",express.static(__dirname+"/frontend/js"));
-app.use(express.static("socialNet/frontend/html"));
+app.use(express.static("frontend/html"));
+app.use(express.static("frontend/uploads"));
+
+
+
 
 /*----------------------multer code---------------------*/
 const st = multer.diskStorage({
@@ -61,13 +65,21 @@ res.sendFile("./frontend/html/register.html",{root:__dirname});
 
 app.get("/profile",function(req,res)
 {
-res.render('profile');
+
+    var q="select * from users";
+    con.query(q,function(err,result){
+        if(err)
+            throw err;
+        res.render("profile",{data:result});
+});
+
 });
 
 app.get("/",function(req,res)
 {
 res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
+
 
 
 
@@ -107,6 +119,9 @@ con.query(q,function(err,result){
         if(p==b)
             {
                 req.session.aname=result[0].name;
+                req.session.uimage=result[0].UserImage;
+                req.session.uemail=result[0].email;
+
                 res.render('home',{data:result});
                  
                 }   
