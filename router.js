@@ -135,7 +135,7 @@ con.query(q,function(err,result){
 
 
 
-app.listen(8000,()=>
+app.listen(7000,()=>
 {
     console.log("Project run on port no 8000");
 });
