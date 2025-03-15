@@ -13,7 +13,7 @@
     <nav class="navbar">
       <div class="logo">Twitter</div>
       <div class="menu">
-        <a href="home">Home</a>
+        <a href="/home">Home</a>
         <a href="#">Notifications</a>
         <a href="#">Messages</a>
         <a href="profile">Profile</a>
@@ -27,33 +27,38 @@
     <div class="sidebar">
       <div class="user-profile">
         <% 
-        var a="../frontend/uploads/"+data[0].UserImage; 
+        var a="../frontend/uploads/"+ uimage; 
         %>
-        <img src=<%= data[0].UserImage %> alt="Profile" class="profile-pic" height="30" width="30">
-        <h3>Welcome <%=data[0].name %></h3>
+        <img src=<%= uimage %> alt="Profile" class="profile-pic" height="30" width="30">
+        <h3>Welcome <%= uname %></h3>
     
         <button>Tweet</button>
       </div>
     </div>
-
+<form action="Tweet" method="post">
     <div class="feed">
       <div class="tweet-box">
-        <textarea placeholder="What's happening?"></textarea>
-        <button>Tweet</button>
+        <textarea placeholder="What's happening?" class="tweet-box" name="T1"></textarea>
+        <button type="submit">Tweet</button>
       </div>
+    </div>
+</form>
 
-      <div class="tweet">
-        <div class="tweet-header">
+  <div class="tweet-container">
+
+    <div class="tweet">
+      <div class="tweet-header">
           <img src="https://via.placeholder.com/40" alt="User" class="profile-pic">
           <div class="tweet-info">
-            <span class="user-name">John Doe</span>
-            <span class="user-handle">@johndoe</span>
-            <span class="tweet-time">2h ago</span>
+            <span class="user-name">Name</span>
+            <span class="user-handle">Email</span>
+            <span class="tweet-time">TDate</span>
+          
           </div>
         </div>
         <p class="tweet-content"></p>
       </div>
-
+      
       <div class="tweet">
         <div class="tweet-header">
           <img src="https://via.placeholder.com/40" alt="User" class="profile-pic">
@@ -67,6 +72,9 @@
       </div>
     </div>
   </div>
+</div>
 
 </body>
 </html>
+
+ 

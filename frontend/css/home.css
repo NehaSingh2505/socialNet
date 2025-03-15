@@ -80,6 +80,8 @@ header {
 .feed {
     flex: 1;
     padding: 20px;
+    width: 700px;
+    display:inline-flex
 }
 
 .tweet-box {
@@ -96,6 +98,7 @@ header {
     border-radius: 5px;
     padding: 10px;
     resize: none;
+    width: 600px;
 }
 
 .tweet-box button {
@@ -113,7 +116,11 @@ header {
 }
 
 /* Tweet styles */
+.tweet-container{
+    display: inline-block;
+}
 .tweet {
+
     background-color: #ffffff;
     padding: 15px;
     border-radius: 5px;

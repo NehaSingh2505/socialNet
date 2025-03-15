@@ -8,6 +8,19 @@ app.use("/css",express.static(__dirname+"/frontend/css"));
 app.use("/js",express.static(__dirname+"/frontend/js"));
 app.use(express.static("frontend/html"));
 app.use(express.static("frontend/uploads"));
+app.use(session({
+    secret: "12345",
+    saveUninitialized: true,
+    resave: true
+}));
+app.use(function (req, res, next) {
+    res.locals.uname = req.session.uname;
+    res.locals.uemail = req.session.uemail;
+    res.locals.uimage= req.session.uimage;
+    
+  
+    next();
+  });
 
 
 
@@ -27,11 +40,7 @@ const st = multer.diskStorage({
 
 app.set('view engine','ejs');
 
-app.use(session({
-    secret: "12345",
-    saveUninitialized: true,
-    resave: true
-}));
+ 
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}) )
@@ -49,6 +58,10 @@ con.connect(function(err){
         throw err;
     console.log("connect to mysql")
 });
+
+
+ 
+  
 /*----------------------------------------------------*/
 
 
@@ -66,14 +79,10 @@ res.sendFile("./frontend/html/register.html",{root:__dirname});
 app.get("/profile",function(req,res)
 {
 
-    var q="select * from users";
-    con.query(q,function(err,result){
-        if(err)
-            throw err;
-        res.render("profile",{data:result});
+        res.render("profile");
 });
 
-});
+
 
 app.get("/",function(req,res)
 {
@@ -118,12 +127,11 @@ con.query(q,function(err,result){
         var p=result[0].pwd;
         if(p==b)
             {
-                req.session.aname=result[0].name;
+                req.session.uname=result[0].name;
                 req.session.uimage=result[0].UserImage;
                 req.session.uemail=result[0].email;
-
-                res.render('home',{data:result});
-                 
+                
+                res.render('home');  
                 }   
         else
         res.send("Password is invalid");
@@ -133,7 +141,38 @@ con.query(q,function(err,result){
 });    
 });
 
+app.get("/home",(req,res)=>{
+    res.render("home");
+})
 
+app.post("/Tweet",function(req,res){
+    var name=req.session.uname;
+    var email=req.session.uemail;
+    var msg=req.body.T1;
+
+    var q="insert into tweet(name,email,Msg)values('"+name+"','"+email+"','"+msg+"')";
+    con.query(q,function(err,result){
+    if(err)
+        throw err;
+    res.send("Tweet inserted");
+    
+    })
+    
+    });
+
+    app.get("/tweet",function(req,res){
+        var email=req.session.uemail;
+        var q="select * from tweet where email='"+email+"'";
+        con.query(q,function(err,result){
+        if(err)
+            throw err;
+        log()
+        res.render("home",{data:result});
+        
+        })
+        
+        });
+        
 
 app.listen(8000,()=>
 {
