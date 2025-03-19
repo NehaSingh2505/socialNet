@@ -44,33 +44,28 @@
     </div>
 </form>
 
-  <div class="tweet-container">
-
-    <div class="tweet">
-      <div class="tweet-header">
-          <img src="https://via.placeholder.com/40" alt="User" class="profile-pic">
-          <div class="tweet-info">
-            <span class="user-name">Name</span>
-            <span class="user-handle">Email</span>
-            <span class="tweet-time">TDate</span>
-          
-          </div>
-        </div>
-        <p class="tweet-content"></p>
-      </div>
+ 
+       
       
       <div class="tweet">
-        <div class="tweet-header">
-          <img src="https://via.placeholder.com/40" alt="User" class="profile-pic">
+        
+          <% data.forEach((entry)=>
+          {
+            %>
+            <div class="tweet-header">           
           <div class="tweet-info">
-            <span class="user-name">Jane Doe</span>
-            <span class="user-handle">@janedoe</span>
-            <span class="tweet-time">4h ago</span>
+            <span class="user-name"></span>
+            <span class="user-handle"></span>
+            <span class="tweet-time"></span>
           </div>
         </div>
-        <p class="tweet-content"></p>
+        <p class="tweet-content">
+          <%= entry.Name %>
+          <%= entry.Msg %>
+          </p>
       </div>
     </div>
+  <%});%>
   </div>
 </div>
 

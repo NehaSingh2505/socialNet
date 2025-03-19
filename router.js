@@ -131,7 +131,7 @@ con.query(q,function(err,result){
                 req.session.uimage=result[0].UserImage;
                 req.session.uemail=result[0].email;
                 
-                res.render('home');  
+                res.redirect('vtweet'); 
                 }   
         else
         res.send("Password is invalid");
@@ -154,19 +154,20 @@ app.post("/Tweet",function(req,res){
     con.query(q,function(err,result){
     if(err)
         throw err;
-    res.send("Tweet inserted");
+    res.send("vtweet");
     
     })
     
     });
 
-    app.get("/tweet",function(req,res){
+    app.get("/vtweet",function(req,res){
         var email=req.session.uemail;
-        var q="select * from tweet where email='"+email+"'";
+        var q="select * from tweet"; 
+
         con.query(q,function(err,result){
         if(err)
             throw err;
-        log()
+        
         res.render("home",{data:result});
         
         })
