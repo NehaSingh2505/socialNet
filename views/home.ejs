@@ -43,25 +43,19 @@
       </div>
     </div>
 </form>
-
- 
-       
-      
-      <div class="tweet">
-        
+   
           <% data.forEach((entry)=>
           {
             %>
-            <div class="tweet-header">           
+            <div class="tweet">           
           <div class="tweet-info">
-            <span class="user-name"></span>
-            <span class="user-handle"></span>
-            <span class="tweet-time"></span>
+            <span class="user-name"><%= entry.Name ?entry.Name:"Anonymous" %></span>
+            <span class="user-handle"><%=entry.Msg %></span>
+            <span class="tweet-time"><%entry.TDate %></span>
           </div>
         </div>
         <p class="tweet-content">
-          <%= entry.Name %>
-          <%= entry.Msg %>
+          
           </p>
       </div>
     </div>

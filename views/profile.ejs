@@ -26,19 +26,30 @@
     <div class="profile-info">
       <img src="<%= uimage %>" alt="Profile" class="profile-pic">
       <h2><%=uname %></h2>
-      <p>@<%=uemail %></p>
-      <button class="edit-profile">Edit Profile</button>
+      <p><%=uemail %></p>
+       <a href="/editProfile"  class="edit-profile"> Edit Profile</a>
     </div>
   </div>
 
   <div class="feed">
-    <h3>Posts</h3>
+    
+    <% data.forEach((entry)=>
+    {
+      if(entry.name!=uname)
+      {
+      %>
       <div class="tweet">
-        <div class="tweet-header">
-          <div class="tweet-info">
+        <div class="tweet-header"  style="color:darkblue;">
+          <div class="tweet-info"> <%= entry.name;%> 
+            <button class="unfollow-btn" type="submit">Unfollow</button>
+            <button class="follow-btn" type="submit">follow</button>
           </div>
         </div>
       </div>
+    <%}});
+    %>
+    
+  
   </div>
 
 </body>

@@ -79,7 +79,14 @@ res.sendFile("./frontend/html/register.html",{root:__dirname});
 app.get("/profile",function(req,res)
 {
 
-        res.render("profile");
+    var q="select * from users";
+    con.query(q,function(err,result){
+        if(err)
+            throw err;
+        res.render("profile",{data:result});
+
+    })
+        
 });
 
 
@@ -102,7 +109,7 @@ app.post("/regprocess",upload.single("UserImage"),function(req,res)
     var c=req.body.P;
     var d=req.file.filename;
    
-    var q="insert into users values('"+a+"','"+b+"','"+c+"','"+d+"')";
+    var q="insert into users(name,email,pwd,UserImage) values('"+a+"','"+b+"','"+c+"','"+d+"')";
    con.query(q,function(err,result){
     if(err)
         throw err;
@@ -174,11 +181,15 @@ app.post("/Tweet",function(req,res){
         
         });
         
+        
+          
 
 app.listen(8000,()=>
 {
     console.log("Project run on port no 8000");
 });
+
+
 
 
 
