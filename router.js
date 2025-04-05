@@ -181,7 +181,26 @@ app.post("/Tweet",function(req,res){
         
         });
         
-        
+        app.get('/editProfile', (req, res) => {
+                    // Assuming user is in session
+                    const user = req.session.user;
+                    res.render('editProfile', { user });
+                  });
+                  
+                  app.post('/editProfile', upload.single('profilePic'), (req, res) => {
+                    const { name, bio } = req.body;
+                    const profilePic = req.file ? req.file.filename : req.session.user.profilePic;
+                  
+                    // Update user in DB (pseudo-code)
+                    db.updateUser(req.session.user._id, {
+                      name,
+                      bio,
+                      profilePic
+                    });
+                  
+                    res.redirect('/profile');
+                  });
+                  
           
 
 app.listen(8000,()=>
