@@ -49,10 +49,19 @@
             <span class="tweet-date"><%= entry.TDate %></span>
           </div>
           <p class="tweet-content"><%= entry.Msg %></p>
+          <div class="tweet-reactions">
+            <span class="reaction" data-emoji="like">👍 <span class="count">0</span></span>
+            <span class="reaction" data-emoji="love">❤️ <span class="count">0</span></span>
+            <span class="reaction" data-emoji="funny">😂 <span class="count">0</span></span>
+            <span class="reaction" data-emoji="fire">🔥 <span class="count">0</span></span>
+          </div>
         </div>
       <% }) %>
     </main>
   </div>
+
+  
+  
 
 </body>
 </html>

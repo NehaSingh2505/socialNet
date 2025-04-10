@@ -179,4 +179,19 @@
   .tweet-form button:active {
     transform: scale(0.97);
   }
+  .tweet-reactions {
+    margin-top: 10px;
+    display: flex;
+    gap: 15px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .reaction {
+    transition: transform 0.2s ease;
+  }
+  
+  .reaction:hover {
+    transform: scale(1.3);
+  }
   
