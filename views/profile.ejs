@@ -30,9 +30,7 @@
        <a href="/editProfile"  class="edit-profile"> Edit Profile</a>
     </div>
   </div>
-
   <div class="feed">
-    
     <% data.forEach((entry)=>
     {
       if(entry.name!=uname)
@@ -41,16 +39,26 @@
       <div class="tweet">
         <div class="tweet-header"  style="color:darkblue;">
           <div class="tweet-info"> <%= entry.name;%> 
-            <button class="unfollow-btn" type="submit">Unfollow</button>
-            <button class="follow-btn" type="submit">follow</button>
+            <button class="unfollow-btn" onclick="handleunfollow()">Unfollow</button>
+            <!-- <button class="follow-btn" type="submit">follow</button> -->
           </div>
         </div>
       </div>
     <%}});
     %>
-    
-  
   </div>
+
+  <script>
+    const unfollowbtn = document.getElementsByClassName('unfollow-btn');
+    
+    const handleunfollow =(entry)=>{
+      console.log(entry);
+      
+      console.log('unfollow button clicked');
+    }
+    handleunfollow()
+
+  </script>
 
 </body>
 </html>

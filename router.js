@@ -1,4 +1,5 @@
 var express=require('express');
+const http = require('http');
 var app=express();
 app.use(express.static("socialNet/frontend"));
 console.log(__dirname);
@@ -8,6 +9,11 @@ app.use("/css",express.static(__dirname+"/frontend/css"));
 app.use("/js",express.static(__dirname+"/frontend/js"));
 app.use(express.static("frontend/html"));
 app.use(express.static("frontend/uploads"));
+const socketio = require('socket.io');
+const server = http.createServer(app);
+const io = socketio(server);
+
+
 app.use(session({
     secret: "12345",
     saveUninitialized: true,
@@ -75,6 +81,7 @@ app.get("/register",function(req,res)
 {
 res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
+
 
 app.get("/profile",function(req,res)
 {
@@ -181,26 +188,33 @@ app.post("/Tweet",function(req,res){
         
         });
         
-        app.get('/editProfile', (req, res) => {
-                    // Assuming user is in session
-                    const user = req.session.user;
-                    res.render('editProfile', { user });
-                  });
-                  
-                  app.post('/editProfile', upload.single('profilePic'), (req, res) => {
-                    const { name, bio } = req.body;
-                    const profilePic = req.file ? req.file.filename : req.session.user.profilePic;
-                  
-                    // Update user in DB (pseudo-code)
-                    db.updateUser(req.session.user._id, {
-                      name,
-                      bio,
-                      profilePic
-                    });
-                  
-                    res.redirect('/profile');
-                  });
-                  
+    
+        app.get("/message", (req, res) => {
+            res.sendFile("./frontend/html/message.html", { root: __dirname });
+        });
+        
+        io.on('connection',(socket)=>{
+            console.log(`connection established at ${socket.id}`);
+        
+        
+            socket.on('send-msg',(data)=>{ // listen to some EVENT
+                // console.log(data.msg);
+        
+                io.emit('recieve-msg',{    // emit is used to send data to client
+                // socket.emit('recieve-msg',{
+                    msg:data.msg,
+                    username:users[socket.id] // socket.id is unique for every user
+                })
+            })
+        
+           socket.on('login',(data)=>{
+            let users = {};
+        users[socket.id]=data.username; // socket.id is unique for every user
+        //hmne socket.id ko username se map kr diya hm obje ko array ki trah likh skte he
+           })
+        
+        
+        })
           
 
 app.listen(8000,()=>
