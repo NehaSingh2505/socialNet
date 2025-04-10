@@ -3,6 +3,8 @@
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
+    "html": "^1.0.0",
+    "http": "^0.0.1-security",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "nodemon": "^3.1.9",

@@ -1,100 +1,153 @@
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .container {
-    width: 80%;
-    margin: 40px auto;
-    text-align: center;
+  max-width: 420px;
+  width: 100%;
+  padding: 2rem;
 }
 
-.login-signup {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.signup-form {
+  background-color: #fff;
+  border: 1px solid #e1e8ed;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  text-align: center;
 }
 
-.login, .signup {
-    width: 45%;
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.brand-logo {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
-.login h2, .signup h2 {
-    margin-top: 0;
+h2 {
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: #0f1419;
 }
 
-.login form, .signup form {
-    margin-top: 20px;
+.input-group {
+  margin-bottom: 1rem;
 }
 
-input[type="email"], input[type="password"], input[type="text"] {
-    width: 100%;
-    height: 40px;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccd6dd;
+  border-radius: 9999px;
+  background-color: #f5f8fa;
+  font-size: 1rem;
+  transition: 0.3s ease;
 }
 
-button[type="button"], button[type="submit"] {
-    width: 100%;
-    height: 40px;
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+input:focus {
+  outline: none;
+  border-color: #1da1f2;
+  background-color: #ffffff;
 }
 
-button[type="button"]:hover, button[type="submit"]:hover {
-    background-color: #3e8e41;
+/* Upload button */
+.upload-label {
+  display: inline-block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #f5f8fa;
+  border: 1px dashed #ccd6dd;
+  border-radius: 9999px;
+  cursor: pointer;
+  color: #657786;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
 }
-/*---------------image------------*/
 
-.form-group.image-box {
-    margin-bottom: 20px;
-  }
-  
-  .form-group.image-box label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
-  .image-placeholder {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    text-align: center;
-    padding: 20px;
-    cursor: pointer;
-  }
-  
-  .image-placeholder span {
-    font-size: 16px;
-    color: #337ab7;
-    text-decoration: none;
-  }
-  
-  .image-placeholder span:hover {
-    color: #23527c;
-  }
-  
-  .image-placeholder input[type="file"] {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-  }
+.upload-label:hover {
+  background-color: #e8f5fe;
+}
+
+.signup-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.signup-button:hover {
+  background-color: #1a91da;
+}
+
+.login-link {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.login-link a {
+  color: #1da1f2;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+.divider {
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  color: #657786;
+  position: relative;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.social-icons a {
+  font-size: 1.5rem;
+  color: #1da1f2;
+  text-decoration: none;
+}
+
+.social-icons a:hover {
+  color: #0d8ddb;
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+.social-icons a {
+  font-size: 1.8rem;
+  color: #1da1f2;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+  color: #0d8ddb;
+}

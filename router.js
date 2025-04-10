@@ -190,32 +190,13 @@ app.post("/Tweet",function(req,res){
         
     
         app.get("/message", (req, res) => {
-            res.sendFile("./frontend/html/message.html", { root: __dirname });
+            res.render("./frontend/html/message.html", { root: __dirname });
         });
         
-        io.on('connection',(socket)=>{
-            console.log(`connection established at ${socket.id}`);
+       
         
         
-            socket.on('send-msg',(data)=>{ // listen to some EVENT
-                // console.log(data.msg);
-        
-                io.emit('recieve-msg',{    // emit is used to send data to client
-                // socket.emit('recieve-msg',{
-                    msg:data.msg,
-                    username:users[socket.id] // socket.id is unique for every user
-                })
-            })
-        
-           socket.on('login',(data)=>{
-            let users = {};
-        users[socket.id]=data.username; // socket.id is unique for every user
-        //hmne socket.id ko username se map kr diya hm obje ko array ki trah likh skte he
-           })
-        
-        
-        })
-          
+       
 
 app.listen(8000,()=>
 {
