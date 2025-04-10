@@ -28,6 +28,7 @@ app.use(function (req, res, next) {
     next();
   });
 
+  app.use('/uploads', express.static(__dirname + '/frontend/uploads'));
 
 
 
@@ -83,20 +84,86 @@ res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
 
 
-app.get("/profile",function(req,res)
-{
+app.get("/profile", function (req, res) {
+    const currentUserId = req.session.id;
+    const currentUsername = req.session.uname;
+  
+    if (!currentUserId) {
+      return res.redirect("/login"); // or wherever your login route is
+    }
 
-    var q="select * from users";
-    con.query(q,function(err,result){
-        if(err)
-            throw err;
-        res.render("profile",{data:result});
+    const getUsersQuery = "SELECT * FROM users";
+  
+    // Query to get list of users the current user is following
+    const getFollowedQuery = "SELECT following_id FROM followers WHERE follower_id = ?";
+  
+    con.query(getUsersQuery, function (err, allUsers) {
+      if (err) throw err;
+  
+      con.query(getFollowedQuery, [currentUserId], function (err, followedRows) {
+        if (err) throw err;
+  
+        const followedIds = followedRows.map(row => row.following_id);
+    
+            res.render("profile", {
+            data: allUsers,           // List of all users
+            uname: currentUsername,   // Current username
+            followedIds: followedIds  // List of user IDs the current user follows
+            });
+      });
+    });
+  });
 
-    })
-        
-});
+  app.post("/follow", function (req, res) {
+    const followerId = req.session.id;
+    const followingId = req.body.userId;
+  
+    if (!followerId) return res.status(401).send("Not logged in");
+  
+    const insertQuery = "INSERT INTO followers (follower_id, following_id) VALUES (?, ?)";
+  
+    con.query(insertQuery, [followerId, followingId], function (err) {
+      if (err) {
+        if (err.code === 'ER_DUP_ENTRY') return res.status(200).send("Already following");
+        return res.status(500).send("Error inserting follower");
+      }
+      res.status(200).send("Followed successfully");
+    });
+  });
 
 
+  app.post("/unfollow", function (req, res) {
+    const followerId = req.session.id;
+    const followingId = req.body.userId;
+  
+    if (!followerId) return res.status(401).send("Not logged in");
+  
+    const deleteQuery = "DELETE FROM followers WHERE follower_id = ? AND following_id = ?";
+  
+    con.query(deleteQuery, [followerId, followingId], function (err) {
+      if (err) return res.status(500).send("Error removing follower");
+      res.status(200).send("Unfollowed successfully");
+    });
+  });
+  
+  app.get("/editProfile", function (req, res) {
+    const currentUserId = req.session.id;
+    const currentUsername = req.session.uname;
+  
+    if (!currentUserId) {
+      return res.redirect("/login"); // or wherever your login route is
+    }
+
+    var entry="select * from users where id='"+currentUserId+"'";
+
+    
+    res.render("editProfile", { entry     });
+
+
+
+
+
+  });
 
 app.get("/",function(req,res)
 {
@@ -141,6 +208,7 @@ con.query(q,function(err,result){
         var p=result[0].pwd;
         if(p==b)
             {
+                req.session.id =result[0].id;
                 req.session.uname=result[0].name;
                 req.session.uimage=result[0].UserImage;
                 req.session.uemail=result[0].email;

@@ -31,34 +31,70 @@
     </div>
   </div>
   <div class="feed">
-    <% data.forEach((entry)=>
-    {
-      if(entry.name!=uname)
-      {
-      %>
-      <div class="tweet">
-        <div class="tweet-header"  style="color:darkblue;">
-          <div class="tweet-info"> <%= entry.name;%> 
-            <button class="unfollow-btn" onclick="handleunfollow()">Unfollow</button>
-            <!-- <button class="follow-btn" type="submit">follow</button> -->
+    <% data.forEach((entry, index) => {
+      if (entry.name !== uname) {
+        const isFollowed = followedIds.includes(entry.id);
+    %>
+      <div class="tweet" id="tweet-<%= index %>">
+        <div class="tweet-header" style="color:darkblue;">
+          <div class="tweet-info">
+            <%= entry.name %>
+            <% if (isFollowed) { %>
+              <button class="unfollow-btn" onclick="handleUnfollow('<%= entry.id %>', '<%= index %>')">Unfollow</button>
+            <% } else { %>
+              <button class="follow-btn" onclick="handleFollow('<%= entry.id %>', '<%= index %>')">Follow</button>
+            <% } %>
           </div>
         </div>
       </div>
-    <%}});
-    %>
+    <% }}); %>
+    
+    
   </div>
 
   <script>
-    const unfollowbtn = document.getElementsByClassName('unfollow-btn');
-    
-    const handleunfollow =(entry)=>{
-      console.log(entry);
-      
-      console.log('unfollow button clicked');
+    async function handleFollow(userId, index) {
+      try {
+        const res = await fetch("/follow", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId })
+        });
+  
+        if (res.ok) {
+          // Update the button
+          const tweet = document.getElementById(`tweet-${index}`);
+          tweet.querySelector(".follow-btn").outerHTML = 
+            `<button class="unfollow-btn" onclick="handleUnfollow(${userId}, ${index})">Unfollow</button>`;
+        }
+      } catch (err) {
+        console.error("Follow error:", err);
+      }
     }
-    handleunfollow()
-
+  
+    async function handleUnfollow(userId, index) {
+      try {
+        const res = await fetch("/unfollow", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId })
+        });
+  
+        if (res.ok) {
+          // Update the button
+          const tweet = document.getElementById(`tweet-${index}`);
+          tweet.querySelector(".unfollow-btn").outerHTML = 
+            `<button class="follow-btn" onclick="handleFollow(${userId}, ${index})">Follow</button>`;
+        }
+      } catch (err) {
+        console.error("Unfollow error:", err);
+      }
+    }
   </script>
-
+  
 </body>
 </html>

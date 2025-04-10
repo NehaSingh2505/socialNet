@@ -1,69 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Twitter Clone</title>
-  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/home.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
-  <!-- Header Section -->
+  <!-- Header -->
   <header>
     <nav class="navbar">
-      <div class="logo">Twitter</div>
+      <div class="logo">🐦 Twitter</div>
       <div class="menu">
         <a href="/home">Home</a>
         <a href="#">Notifications</a>
-        <a href="message">Messages</a>
-        <a href="profile">Profile</a>
+        <a href="/message">Messages</a>
+        <a href="/profile">Profile</a>
         <a href="#">More</a>
       </div>
     </nav>
   </header>
 
-  <!-- Main Content Section -->
+  <!-- Main Container -->
   <div class="container">
-    <div class="sidebar">
+    <!-- Sidebar -->
+    <aside class="sidebar">
       <div class="user-profile">
-        <% 
-        var a="../frontend/uploads/"+ uimage; 
-        %>
-        <img src=<%= uimage %> alt="Profile" class="profile-pic" height="30" width="30">
-        <h3>Welcome <%= uname %></h3>
-    
-        <button>Tweet</button>
+        <img src="/uploads/<%= uimage %>" alt="Profile" class="profile-pic" height="60" width="60" />
+        <h3>Welcome, <%= uname %>!</h3>
+        <form action="/Tweet" method="post" class="tweet-form">
+          <textarea name="T1" placeholder="What's happening?" required></textarea>
+          <button type="submit">Tweet</button>
+        </form>
       </div>
-    </div>
-<form action="Tweet" method="post">
-    <div class="feed">
-      <div class="tweet-box">
-        <textarea placeholder="What's happening?" class="tweet-box" name="T1"></textarea>
-        <button type="submit">Tweet</button>
-      </div>
-    </div>
-</form>
-   
-          <% data.forEach((entry)=>
-          {
-            %>
-            <div class="tweet">           
-          <div class="tweet-info">
-            <span class="user-name"><%= entry.Name ?entry.Name:"Anonymous" %></span>
-            <span class="user-handle"><%=entry.Msg %></span>
-            <span class="tweet-time"><%entry.TDate %></span>
+    </aside>
+
+    <!-- Feed -->
+    <main class="feed">
+      <% data.forEach((entry) => { %>
+        <div class="tweet">
+          <div class="tweet-header">
+            <strong><%= entry.Name ? entry.Name : "Anonymous" %></strong>
+            <span class="tweet-date"><%= entry.TDate %></span>
           </div>
+          <p class="tweet-content"><%= entry.Msg %></p>
         </div>
-        <p class="tweet-content">
-          
-          </p>
-      </div>
-    </div>
-  <%});%>
+      <% }) %>
+    </main>
   </div>
-</div>
 
 </body>
 </html>
-
- 
