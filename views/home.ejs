@@ -59,6 +59,52 @@
       <% }) %>
     </main>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const reactionCounts = {};
+  
+      document.querySelectorAll('.tweet').forEach((tweetEl, tweetIndex) => {
+       
+        reactionCounts[tweetIndex] = {
+          like: 0,
+          love: 0,
+          funny: 0,
+          fire: 0,
+          current: null
+        };
+  
+        tweetEl.querySelectorAll('.reaction').forEach(reactionEl => {
+          reactionEl.addEventListener('click', () => {
+            const emojiType = reactionEl.dataset.emoji;
+            const current = reactionCounts[tweetIndex].current;
+  
+            if (current && current !== emojiType) {
+              const prevEl = tweetEl.querySelector(`.reaction[data-emoji="${current}"]`);
+              if (prevEl) {
+                reactionCounts[tweetIndex][current]--;
+                prevEl.querySelector('.count').textContent = reactionCounts[tweetIndex][current];
+                prevEl.classList.remove('active');
+              }
+            }
+  
+            if (current === emojiType) {
+              reactionCounts[tweetIndex][emojiType]--;
+              reactionCounts[tweetIndex].current = null;
+              reactionEl.classList.remove('active');
+            } else {
+              
+              reactionCounts[tweetIndex][emojiType]++;
+              reactionCounts[tweetIndex].current = emojiType;
+              reactionEl.classList.add('active');
+            }
+  
+            
+            reactionEl.querySelector('.count').textContent = reactionCounts[tweetIndex][emojiType];
+          });
+        });
+      });
+    });
+  </script>
 
   
   
