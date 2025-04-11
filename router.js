@@ -268,7 +268,7 @@ app.post("/Tweet",function(req,res){
 
 app.listen(8000,()=>
 {
-    console.log("Project run on port no 8000");
+    console.log("Project run on port no 800");
 });
 
 
