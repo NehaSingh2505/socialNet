@@ -54,6 +54,7 @@ app.use(express.urlencoded({extended:false}) )
 
 /* create database for stablish connection*/
 var my=require("mysql");
+const { log } = require('console');
 var con= my.createConnection({
     host:'127.0.0.1',
     user:'root',
@@ -113,23 +114,33 @@ app.get("/profile", function (req, res) {
       });
     });
   });
-
   app.post("/follow", function (req, res) {
+    console.log(req.session);
+    
     const followerId = req.session.id;
     const followingId = req.body.userId;
+    console.log(followerId);
+    
+    console.log("Follow request:", { followerId, followingId }); // log the input
   
-    if (!followerId) return res.status(401).send("Not logged in");
+    if (!followerId || !followingId) {
+      console.error("Missing user IDs in follow request");
+      return res.status(400).send("Missing user ID");
+    }
   
     const insertQuery = "INSERT INTO followers (follower_id, following_id) VALUES (?, ?)";
   
-    con.query(insertQuery, [followerId, followingId], function (err) {
+    con.query(insertQuery, [followerId, followingId], function (err, result) {
       if (err) {
-        if (err.code === 'ER_DUP_ENTRY') return res.status(200).send("Already following");
-        return res.status(500).send("Error inserting follower");
+        console.error("Database error on follow:", err); // log full error
+        return res.status(500).send("Database error");
       }
+  
+      console.log("Followed successfully:", result);
       res.status(200).send("Followed successfully");
     });
   });
+  
 
 
   app.post("/unfollow", function (req, res) {
@@ -158,11 +169,6 @@ app.get("/profile", function (req, res) {
 
     
     res.render("editProfile", { entry     });
-
-
-
-
-
   });
 
 app.get("/",function(req,res)
@@ -208,7 +214,7 @@ con.query(q,function(err,result){
         var p=result[0].pwd;
         if(p==b)
             {
-                req.session.id =result[0].id;
+                req.session.id=result[0].id;
                 req.session.uname=result[0].name;
                 req.session.uimage=result[0].UserImage;
                 req.session.uemail=result[0].email;
@@ -268,7 +274,7 @@ app.post("/Tweet",function(req,res){
 
 app.listen(8000,()=>
 {
-    console.log("Project run on port no 800");
+    console.log("Project run on port no 8000");
 });
 
 
