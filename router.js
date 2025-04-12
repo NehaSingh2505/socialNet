@@ -12,12 +12,19 @@ app.use(express.static("frontend/uploads"));
 const socketio = require('socket.io');
 const server = http.createServer(app);
 const io = socketio(server);
-
+const MySQLStore = require('express-mysql-session')(session);
+const sessionStore = new MySQLStore({
+  host: '127.0.0.1',
+  user: 'root',
+  password: '',
+  database: 'socialnet'
+});
 
 app.use(session({
     secret: "12345",
     saveUninitialized: true,
-    resave: true
+    resave: true,
+    store: sessionStore
 }));
 app.use(function (req, res, next) {
     res.locals.uname = req.session.uname;
@@ -86,8 +93,11 @@ res.sendFile("./frontend/html/register.html",{root:__dirname});
 
 
 app.get("/profile", function (req, res) {
-    const currentUserId = req.session.id;
+    const currentUserId = req.session.userId;
     const currentUsername = req.session.uname;
+
+    console.log( currentUserId ," this is the current  user  ID");
+    
   
     if (!currentUserId) {
       return res.redirect("/login"); // or wherever your login route is
@@ -117,7 +127,7 @@ app.get("/profile", function (req, res) {
   app.post("/follow", function (req, res) {
     console.log(req.session);
     
-    const followerId = req.session.id;
+    const followerId = req.session.userId;
     const followingId = req.body.userId;
     console.log(followerId);
     
@@ -144,7 +154,7 @@ app.get("/profile", function (req, res) {
 
 
   app.post("/unfollow", function (req, res) {
-    const followerId = req.session.id;
+    const followerId = req.session.userId;
     const followingId = req.body.userId;
   
     if (!followerId) return res.status(401).send("Not logged in");
@@ -158,7 +168,7 @@ app.get("/profile", function (req, res) {
   });
   
   app.get("/editProfile", function (req, res) {
-    const currentUserId = req.session.id;
+    const currentUserId = req.session.userId;
     const currentUsername = req.session.uname;
   
     if (!currentUserId) {
@@ -214,8 +224,8 @@ con.query(q,function(err,result){
         var p=result[0].pwd;
         if(p==b)
             {
-                req.session.id=result[0].id;
                 req.session.uname=result[0].name;
+                req.session.userId=result[0].id;
                 req.session.uimage=result[0].UserImage;
                 req.session.uemail=result[0].email;
                 
