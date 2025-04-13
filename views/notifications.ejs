@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notifications</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h2>Your Notifications</h2>
+    <ul>
+        <% if (notifications.length === 0) { %>
+            <li>No notifications yet.</li>
+        <% } %>
+        <% notifications.forEach(notif => { %>
+            <li style=<%= !notif.is_read ? 'font-weight: bold;' : '' %>>
+                <%= notif.message %> - <%= new Date(notif.created_at).toLocaleString() %>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>

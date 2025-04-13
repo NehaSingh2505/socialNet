@@ -100,12 +100,11 @@ app.get("/profile", function (req, res) {
     
   
     if (!currentUserId) {
-      return res.redirect("/login"); // or wherever your login route is
+      return res.redirect("/login"); 
     }
 
     const getUsersQuery = "SELECT * FROM users";
   
-    // Query to get list of users the current user is following
     const getFollowedQuery = "SELECT following_id FROM followers WHERE follower_id = ?";
   
     con.query(getUsersQuery, function (err, allUsers) {
@@ -117,9 +116,9 @@ app.get("/profile", function (req, res) {
         const followedIds = followedRows.map(row => row.following_id);
     
             res.render("profile", {
-            data: allUsers,           // List of all users
-            uname: currentUsername,   // Current username
-            followedIds: followedIds  // List of user IDs the current user follows
+            data: allUsers,          
+            uname: currentUsername,   
+            followedIds: followedIds  /* List of user ID the current user follow*/
             });
       });
     });
@@ -131,7 +130,7 @@ app.get("/profile", function (req, res) {
     const followingId = req.body.userId;
     console.log(followerId);
     
-    console.log("Follow request:", { followerId, followingId }); // log the input
+    console.log("Follow request:", { followerId, followingId }); 
   
     if (!followerId || !followingId) {
       console.error("Missing user IDs in follow request");
@@ -142,15 +141,26 @@ app.get("/profile", function (req, res) {
   
     con.query(insertQuery, [followerId, followingId], function (err, result) {
       if (err) {
-        console.error("Database error on follow:", err); // log full error
+        console.error("Database error on follow:", err); 
         return res.status(500).send("Database error");
       }
-  
+
+      // const notifMsg = `User ${req.session.uname} started following you.`;
+      // const insertNotifQuery = "INSERT INTO notifications (user_id, type, message) VALUES (?, 'follow', ?)";
+
+      // // This notifies the user being followed
+      // con.query(insertNotifQuery, [followingId, notifMsg], function (err2, result2) {
+      //     if (err2) {
+      //         console.error("Notification error:", err2);
+      //         return res.status(500).send("Followed but failed to notify");
+      //     }
+
+      
       console.log("Followed successfully:", result);
       res.status(200).send("Followed successfully");
     });
   });
-  
+  // });
 
 
   app.post("/unfollow", function (req, res) {
@@ -172,7 +182,7 @@ app.get("/profile", function (req, res) {
     const currentUsername = req.session.uname;
   
     if (!currentUserId) {
-      return res.redirect("/login"); // or wherever your login route is
+      return res.redirect("/login"); 
     }
 
     var entry="select * from users where id='"+currentUserId+"'";
@@ -276,8 +286,33 @@ app.post("/Tweet",function(req,res){
         app.get("/message", (req, res) => {
             res.render("./frontend/html/message.html", { root: __dirname });
         });
-        
-       
+       /*----------------------notification----------------*/ 
+      //   app.get("/notifications", (req, res) => {
+      //     const currentUserId = req.session.userId;
+      
+      //     if (!currentUserId) {
+      //         return res.redirect("/login");
+      //     }
+      
+      //     const q = "SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC";
+      
+      //     con.query(q, [currentUserId], (err, result) => {
+      //         if (err) throw err;
+      //         res.render("notifications", { notifications: result });
+      //     });
+      // });
+
+// const notifMsg = `User ${req.session.uname} started following you.`;
+// const insertNotifQuery = "INSERT INTO notifications (user_id, type, message) VALUES (?, 'follow', ?)";
+
+// con.query(insertNotifQuery, [followingId, notifMsg], function (err2) {
+//     if (err2) {
+//         console.error("Notification error:", err2);
+//         // continue even if notification fails
+//     }
+//   });
+
+      
         
         
        
@@ -285,7 +320,7 @@ app.post("/Tweet",function(req,res){
 app.listen(8000,()=>
 {
     console.log("Project run on port no 8000");
-});
+  });
 
 
 

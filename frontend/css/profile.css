@@ -1,51 +1,53 @@
-/* General Reset */
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f8fa;
 }
 
-/* Navbar */
 .navbar {
+  background-color: #1da1f2;
+  color: white;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1DA1F2;
-  padding: 10px 20px;
-  color: white;
 }
 
 .logo {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
 .menu a {
   color: white;
+  margin-left: 1rem;
   text-decoration: none;
-  margin: 0 10px;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
 }
 
 .menu a:hover {
-  text-decoration: underline;
+  color: #cce7ff;
 }
 
-/* Profile Banner */
 .profile-container {
-  background-color: white;
-  border-bottom: 1px solid #ccc;
+  background: white;
+  margin: 2rem auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 80%;
+  max-width: 800px;
+  overflow: hidden;
 }
 
 .banner {
-  height: 8px;
-  background-color: #1DA1F2;
+  background-color: #cce7ff;
+  height: 120px;
 }
 
-/* Profile Info */
 .profile-info {
   text-align: center;
-  padding: 20px;
+  padding: 1.5rem;
   position: relative;
 }
 
@@ -53,72 +55,51 @@ body {
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  object-fit: cover;
   border: 4px solid white;
   margin-top: -60px;
-  object-fit: cover;
+  background: #fff;
 }
 
 .profile-info h2 {
-  margin: 10px 0 5px;
+  margin: 1rem 0 0.2rem;
+  font-size: 1.6rem;
+  color: #333;
 }
 
 .profile-info p {
-  color: #657786;
-  margin: 0 0 10px;
-}
-
-.edit-profile,
-.follow-btn,
-.unfollow-btn {
-  padding: 8px 16px;
-  margin: 5px;
-  border-radius: 20px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  margin: 0;
+  color: #777;
 }
 
 .edit-profile {
-  background-color: white;
-  color: #1DA1F2;
-  border: 1px solid #1DA1F2;
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.4rem 1rem;
+  background-color: #1da1f2;
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: background-color 0.2s;
 }
 
 .edit-profile:hover {
-  background-color: #e8f5fe;
+  background-color: #0d8ddf;
 }
 
-.follow-btn {
-  background-color: #1DA1F2;
-  color: white;
-}
-
-.follow-btn:hover {
-  background-color: #0c85d0;
-}
-
-.unfollow-btn {
-  background-color: white;
-  color: #e0245e;
-  border: 1px solid #e0245e;
-}
-
-.unfollow-btn:hover {
-  background-color: #ffeef0;
-}
-
-/* Feed */
 .feed {
-  padding: 20px;
+  width: 80%;
+  max-width: 800px;
+  margin: 1rem auto 2rem;
 }
 
 .tweet {
   background-color: white;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  border: 1px solid #e1e8ed;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .tweet-header {
@@ -128,6 +109,36 @@ body {
 }
 
 .tweet-info {
-  font-weight: bold;
-  font-size: 16px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1a202c;
+}
+
+button.follow-btn,
+button.unfollow-btn {
+  padding: 0.3rem 1rem;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+button.follow-btn {
+  background-color: #1da1f2;
+  color: white;
+}
+
+button.follow-btn:hover {
+  background-color: #0d8ddf;
+}
+
+button.unfollow-btn {
+  background-color: #e0245e;
+  color: white;
+}
+
+button.unfollow-btn:hover {
+  background-color: #c00b4f;
 }
