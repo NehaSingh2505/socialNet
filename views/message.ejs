@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Messages</title>
+  <style>
+    #chat {
+      display: none;
+      margin-top: 20px;
+    }
+    #messages {
+      height: 250px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    #users li {
+      cursor: pointer;
+      padding: 5px;
+    }
+    #users li:hover {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chat with Users</h1>
+
+  <ul id="users">
+    <% users.forEach(user => { %>
+      <li data-id="<%= user.id %>" data-name="<%= user.name %>"><%= user.name %></li>
+    <% }) %>
+  </ul>
+
+  <div id="chat">
+    <h2 id="chatWith"></h2>
+    <div id="messages"></div>
+    <input type="text" id="msgInput" placeholder="Type your message..." />
+    <button id="sendBtn">Send</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.emit('registerUser', '<%= currentUser.id %>');
+
+    const currentUserId = '<%= currentUser.id %>';
+    let selectedUserId = null;
+    let messageHistory = {};
+
+    const users = document.querySelectorAll('#users li');
+    const chatBox = document.getElementById('chat');
+    const msgBox = document.getElementById('messages');
+    const input = document.getElementById('msgInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    users.forEach(li => {
+      li.addEventListener('click', () => {
+        selectedUserId = li.dataset.id;
+        document.getElementById('chatWith').innerText = 'Chat with ' + li.dataset.name;
+        chatBox.style.display = 'block';
+
+        renderMessages(selectedUserId);
+      });
+    });
+
+    sendBtn.addEventListener('click', () => {
+      const message = input.value.trim();
+      if (!message || !selectedUserId) return;
+
+      socket.emit('privateMessage', {
+        senderId: currentUserId,
+        receiverId: selectedUserId,
+        message: message
+      });
+
+      if (!messageHistory[selectedUserId]) messageHistory[selectedUserId] = [];
+      messageHistory[selectedUserId].push({ senderId: currentUserId, message });
+      renderMessages(selectedUserId);
+      input.value = '';
+    });
+
+    socket.on('privateMessage', data => {
+      const userId = data.senderId === currentUserId ? data.receiverId : data.senderId;
+      if (!messageHistory[userId]) messageHistory[userId] = [];
+      messageHistory[userId].push({ senderId: data.senderId, message: data.message });
+
+      if (userId == selectedUserId) renderMessages(userId);
+    });
+
+    function renderMessages(userId) {
+      msgBox.innerHTML = '';
+      const messages = messageHistory[userId] || [];
+      messages.forEach(msg => {
+        const div = document.createElement('div');
+        div.innerText = msg.senderId == currentUserId ? `You: ${msg.message}` : `Them: ${msg.message}`;
+        msgBox.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -11,7 +11,8 @@ app.use(express.static("frontend/html"));
 app.use(express.static("frontend/uploads"));
 const socketio = require('socket.io');
 const server = http.createServer(app);
-const io = socketio(server);
+const { Server } = require('socket.io');
+const io = new Server(server);
 const MySQLStore = require('express-mysql-session')(session);
 const sessionStore = new MySQLStore({
   host: '127.0.0.1',
@@ -106,6 +107,9 @@ app.get("/profile", function (req, res) {
     const getUsersQuery = "SELECT * FROM users";
   
     const getFollowedQuery = "SELECT following_id FROM followers WHERE follower_id = ?";
+  //   const getFollowerCountQuery = "SELECT COUNT(*) AS count FROM followers WHERE following_id = ?";
+  // const getFollowingCountQuery = "SELECT COUNT(*) AS count FROM followers WHERE follower_id = ?";
+
   
     con.query(getUsersQuery, function (err, allUsers) {
       if (err) throw err;
@@ -114,15 +118,30 @@ app.get("/profile", function (req, res) {
         if (err) throw err;
   
         const followedIds = followedRows.map(row => row.following_id);
+        // con.query(getFollowerCountQuery, [currentUserId], function (err, followerResult) {
+        //   if (err) throw err;
+  
+        //   const followersCount = followerResult[0].count;
+  
+        //   // Fourth query: Count users the current user is following
+        //   con.query(getFollowingCountQuery, [currentUserId], function (err, followingResult) {
+        //     if (err) throw err;
+  
     
+        // const followingCount = followingResult[0].count;
+
             res.render("profile", {
             data: allUsers,          
             uname: currentUsername,   
-            followedIds: followedIds  /* List of user ID the current user follow*/
-            });
-      });
+            followedIds: followedIds , /* List of user ID the current user follow*/
+      //       followersCount,
+      //       followingCount  
+      //     });
+      // });
     });
   });
+});
+});
   app.post("/follow", function (req, res) {
     console.log(req.session);
     
@@ -196,6 +215,41 @@ app.get("/",function(req,res)
 res.sendFile("./frontend/html/register.html",{root:__dirname});
 });
 
+/*--------------------Message----------------*/
+app.get('/message', (req, res) => {
+  const currentUserId = req.session.userId;
+  con.query('SELECT id, name FROM users WHERE id != ?', [currentUserId], (err, users) => {
+    if (err) throw err;
+    res.render('message', { users, currentUser: { id: req.session.userId, name: req.session.uname } });
+
+  });
+});
+let userSocketMap = {};
+
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
+  socket.on('registerUser', (userId) => {
+    userSocketMap[userId] = socket.id;
+    console.log(`User ${userId} connected with socket ID ${socket.id}`);
+  });
+
+  socket.on('privateMessage', (data) => {
+    // Save to DB (MySQL)
+    const { senderId, receiverId, message } = data;
+    const timestamp = new Date();
+console.log('private message received',data);
+    con.query(
+      'INSERT INTO messages (sender_id, receiver_id, message, timestamp) VALUES (?, ?, ?, ?)',
+      [senderId, receiverId, message, timestamp]
+    );
+
+    // Emit to the receiver
+    const receiverSocketId = userSocketMap[receiverId];
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit('privateMessage', data);
+    }
+  });
+});
 
 
 
@@ -283,9 +337,10 @@ app.post("/Tweet",function(req,res){
         });
         
     
-        app.get("/message", (req, res) => {
-            res.render("./frontend/html/message.html", { root: __dirname });
-        });
+       
+
+
+
        /*----------------------notification----------------*/ 
       //   app.get("/notifications", (req, res) => {
       //     const currentUserId = req.session.userId;
@@ -317,7 +372,7 @@ app.post("/Tweet",function(req,res){
         
        
 
-app.listen(8000,()=>
+server.listen(8000,()=>
 {
     console.log("Project run on port no 8000");
   });
