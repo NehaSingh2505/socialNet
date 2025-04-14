@@ -3,25 +3,116 @@
 <head>
   <title>Messages</title>
   <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+      color: #0f1419;
+    }
+  
+    h1 {
+      text-align: center;
+      color: #1da1f2;
+      margin-bottom: 30px;
+    }
+  
+    #users {
+      list-style: none;
+      padding: 0;
+      max-width: 400px;
+      margin: 0 auto 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+  
+    #users li {
+      padding: 15px 20px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+  
+    #users li:last-child {
+      border-bottom: none;
+    }
+  
+    #users li:hover {
+      background-color: #f7f9f9;
+    }
+  
     #chat {
       display: none;
-      margin-top: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      padding: 20px;
     }
+  
+    #chat h2 {
+      margin-top: 0;
+      color: #1da1f2;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+  
     #messages {
       height: 250px;
       overflow-y: auto;
-      border: 1px solid #ccc;
+      border: 1px solid #e1e8ed;
+      border-radius: 8px;
       padding: 10px;
-      margin-bottom: 10px;
+      background-color: #f7f9f9;
+      margin-bottom: 15px;
     }
-    #users li {
+  
+    #messages div {
+      padding: 6px 10px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+  
+    #messages div:nth-child(odd) {
+      background-color: #e8f5fd;
+      align-self: flex-start;
+    }
+  
+    #messages div:nth-child(even) {
+      background-color: #d3f8cb;
+      align-self: flex-end;
+    }
+  
+    #msgInput {
+      width: 75%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-right: 10px;
+    }
+  
+    #sendBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #1da1f2;
+      color: white;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      padding: 5px;
+      transition: background-color 0.2s ease;
     }
-    #users li:hover {
-      background-color: #eee;
+  
+    #sendBtn:hover {
+      background-color: #0d8ddb;
     }
   </style>
+  
 </head>
 <body>
   <h1>Chat with Users</h1>
