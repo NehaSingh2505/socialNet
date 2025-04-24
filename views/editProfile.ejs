@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Edit Profile - Twitter Clone</title>
-  <link rel="stylesheet" href="/css/editProfile.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Edit Profile</h1>
-    <form action="/editProfile" method="POST" enctype="multipart/form-data">
-      <label for="name">Display Name:</label>
-      <input type="text" id="name" name="name" value="<%= entry.name %>" required />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Profile - Twitter Clone</title>
+    <link rel="stylesheet" href="/css/editProfile.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Edit Profile</h1>
+      <form action="/editProfile" method="POST" enctype="multipart/form-data">
+        <label for="name">Display Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="<%= entry.name %>"
+          required
+        />
 
-      <label for="bio">Bio:</label>
-      <!-- <textarea id="bio" name="bio" rows="4"><%= %></textarea> -->
+        <label for="bio">Bio:</label>
+        <!-- <textarea id="bio" name="bio" rows="4"><%= %></textarea> -->
 
-      <label for="profilePic">Profile Picture:</label>
-      <input type="file" id="profilePic" name="profilePic" accept="image/*" />
+        <label for="profilePic">Profile Picture:</label>
+        <input type="file" id="profilePic" name="profilePic" accept="image/*" />
 
-      <button type="submit">Save Changes</button>
-    </form>
-  </div>
-</body>
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </body>
 </html>

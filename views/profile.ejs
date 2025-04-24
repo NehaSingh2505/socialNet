@@ -1,101 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile - Twitter Clone</title>
-  <link rel="stylesheet" href="/css/profile.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - Twitter Clone</title>
+    <link rel="stylesheet" href="/css/profile.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">Twitter</div>
+        <div class="menu">
+          <a href="home">Home</a>
+          <a href="/notifications">Notifications</a>
+          <a href="#">Messages</a>
+          <a href="profile">Profile</a>
+          <a href="#">More</a>
+        </div>
+      </nav>
+    </header>
 
-  <header>
-    <nav class="navbar">
-      <div class="logo">Twitter</div>
-      <div class="menu">
-        <a href="home">Home</a>
-        <a href="/notifications">Notifications</a>
-        <a href="#">Messages</a>
-        <a href="profile">Profile</a>
-        <a href="#">More</a>
+    <div class="profile-container">
+      <div class="banner"></div>
+      <div class="profile-info">
+        <img src="<%= uimage %>" alt="Profile" class="profile-pic" />
+        <h2><%=uname %></h2>
+        <p><%=uemail %></p>
+        <a href="/editProfile" class="edit-profile"> Edit Profile</a>
       </div>
-    </nav>
-  </header>
-
-  <div class="profile-container">
-    <div class="banner"></div>
-    <div class="profile-info">
-      <img src="<%= uimage %>" alt="Profile" class="profile-pic">
-      <h2><%=uname %></h2>
-      <p><%=uemail %></p>
-       <a href="/editProfile"  class="edit-profile"> Edit Profile</a>
     </div>
-  </div>
-  <div class="feed">
-    <% data.forEach((entry, index) => {
-      if (entry.name !== uname) {
-        const isFollowed = followedIds.includes(entry.id);
-    %>
+    <div class="feed">
+      <% data.forEach((entry, index) => { if (entry.name !== uname) { const
+      isFollowed = followedIds.includes(entry.id); %>
       <div class="tweet" id="tweet-<%= index %>">
-        <div class="tweet-header" style="color:darkblue;">
+        <div class="tweet-header" style="color: darkblue">
           <div class="tweet-info">
-            <%= entry.name %>
-            <% if (isFollowed) { %>
-              <button class="unfollow-btn" onclick="handleUnfollow('<%= entry.id %>', '<%= index %>')">Unfollow</button>
+            <%= entry.name %> <% if (isFollowed) { %>
+            <button
+              class="unfollow-btn"
+              onclick="handleUnfollow('<%= entry.id %>', '<%= index %>')"
+            >
+              Unfollow
+            </button>
             <% } else { %>
-              <button class="follow-btn" onclick="handleFollow('<%= entry.id %>', '<%= index %>')">Follow</button>
+            <button
+              class="follow-btn"
+              onclick="handleFollow('<%= entry.id %>', '<%= index %>')"
+            >
+              Follow
+            </button>
             <% } %>
-           
           </div>
         </div>
       </div>
-    <% }}); %>
-    
-    
-  </div>
+      <% }}); %>
+    </div>
 
-  <script>
-    async function handleFollow(userId, index) {
-      try {
-        const res = await fetch("/follow", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ userId })
-        });
-  
-        if (res.ok) {
-          // Update the button
-          const tweet = document.getElementById(`tweet-${index}`);
-          tweet.querySelector(".follow-btn").outerHTML = 
-            `<button class="unfollow-btn" onclick="handleUnfollow(${userId}, ${index})">Unfollow</button>`;
+    <script>
+      async function handleFollow(userId, index) {
+        try {
+          const res = await fetch("/follow", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId }),
+          });
+
+          if (res.ok) {
+            // Update the button
+            const tweet = document.getElementById(`tweet-${index}`);
+            tweet.querySelector(
+              ".follow-btn"
+            ).outerHTML = `<button class="unfollow-btn" onclick="handleUnfollow(${userId}, ${index})">Unfollow</button>`;
+          }
+        } catch (err) {
+          console.error("Follow error:", err);
         }
-      } catch (err) {
-        console.error("Follow error:", err);
       }
-    }
-  
-    async function handleUnfollow(userId, index) {
-      try {
-        const res = await fetch("/unfollow", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ userId })
-        });
-  
-        if (res.ok) {
-          // Update the button
-          const tweet = document.getElementById(`tweet-${index}`);
-          tweet.querySelector(".unfollow-btn").outerHTML = 
-            `<button class="follow-btn" onclick="handleFollow(${userId}, ${index})">Follow</button>`;
+
+      async function handleUnfollow(userId, index) {
+        try {
+          const res = await fetch("/unfollow", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId }),
+          });
+
+          if (res.ok) {
+            // Update the button
+            const tweet = document.getElementById(`tweet-${index}`);
+            tweet.querySelector(
+              ".unfollow-btn"
+            ).outerHTML = `<button class="follow-btn" onclick="handleFollow(${userId}, ${index})">Follow</button>`;
+          }
+        } catch (err) {
+          console.error("Unfollow error:", err);
         }
-      } catch (err) {
-        console.error("Unfollow error:", err);
       }
-    }
-  </script>
-  
-</body>
+    </script>
+  </body>
 </html>
